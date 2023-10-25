@@ -1,0 +1,46 @@
+import Joi from "joi";
+import mongoose from "mongoose";
+
+const userJoiSchema = Joi.object({
+  firstName: Joi.string().required(),
+  lastName: Joi.string().required(),
+  email: Joi.string().email().required(),
+  password: Joi.string().required(),
+  designation: Joi.string()
+    .valid("MANAGER", "TEAM_LEADER", "DEVELOPER")
+    .required(),
+  companyId: Joi.string()
+    .custom((value, helpers) => {
+      if (!mongoose.Types.ObjectId.isValid(value)) {
+        return helpers.error("Invalid companyId format");
+      }
+      return value;
+    })
+    .required(),
+  isVerified: Joi.boolean().required(),
+  token: Joi.string().allow("", null).optional()
+});
+
+export function validateUser(user: object) {
+  return userJoiSchema.validate(user);
+}
+
+const updateUserJoiSchema = Joi.object({
+  firstName: Joi.string(),
+  lastName: Joi.string(),
+  email: Joi.string().email(),
+  password: Joi.string(),
+  designation: Joi.string().valid("MANAGER", "TEAM_LEADER", "DEVELOPER"),
+  companyId: Joi.string().custom((value, helpers) => {
+    if (value && !mongoose.Types.ObjectId.isValid(value)) {
+      return helpers.error("Invalid companyId format");
+    }
+    return value;
+  }),
+  isVerified: Joi.boolean(),
+  token: Joi.string().allow("", null)
+});
+
+export function validateUserUpdate(user: object) {
+  return updateUserJoiSchema.validate(user);
+}
