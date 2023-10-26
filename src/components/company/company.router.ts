@@ -6,6 +6,7 @@ import {
   getCompanyById,
   updateCompany,
   deleteCompany,
+  searchCompanyByFilter
 } from "./company.controller";
 
 
@@ -18,7 +19,7 @@ companyRouter.patch("/updateCompany/:id", updateCompany);
 
 companyRouter.get("/getCompanies", fetchAllCompanies);
 companyRouter.get("/getCompany/:id", getCompanyById);
-
+companyRouter.get("/searchCompany", searchCompanyByFilter);
 
 companyRouter.delete("/deleteCompany/:id", deleteCompany);
 

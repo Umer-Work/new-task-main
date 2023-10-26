@@ -5,7 +5,9 @@ import {
   findCompanyAndUpdate,
   getAllCompanies,
   getCompanyById,
-  findCompanyById
+  findCompanyById,
+  searchCompany,
+  
 } from "./company.dao";
 
 export const createNewCompany = (companyData: object) => {
@@ -37,11 +39,11 @@ export const getCompanies = () => {
 
 export const updateCompanyById = (id: unknown, data: object) => {
   try {
-    const { value, error }: any = updateCompanySchema.validate(data); // eslint-disable-line
+    const { value, error }: any = updateCompanySchema.validate(data); 
     if (error) {
       throw new Error(
         "Validation Error : " +
-          error.details.map((detail: any) => detail.message).join(", ") // eslint-disable-line
+          error.details.map((detail: any) => detail.message).join(", ") 
       );
     }
     const companyUpdated = findCompanyAndUpdate(id, value);
@@ -51,7 +53,7 @@ export const updateCompanyById = (id: unknown, data: object) => {
     throw error;
   }
 };
-// eslint-disable-next-line
+
 export const fetchCompanyById = (id: any) => {
   try {
     const company = getCompanyById(id);
@@ -64,7 +66,7 @@ export const fetchCompanyById = (id: any) => {
     throw error;
   }
 };
-// eslint-disable-next-line
+
 export const deleteCompanyById = async (id: any) => {
   try {
     const company =  await findCompanyById(id);
@@ -79,5 +81,12 @@ export const deleteCompanyById = async (id: any) => {
   }
 };
 
-// eslint-disable-next-line
-
+export const searchByFilter =async (field : string, query : string) => {
+  try {
+    const companies = await searchCompany(field, query);
+    return companies;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}

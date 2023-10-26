@@ -1,4 +1,4 @@
-import { createNewUser, getallUsers, updateUserById, findUserWithId , deleteUserById, updateUsersCompanyId, loginUser} from "./user.service";
+import { createNewUser, getallUsers, updateUserById, findUserWithId , deleteUserById, updateUsersCompanyId, loginUser, searchUserByFilter} from "./user.service";
 import { Request, Response } from "express";
 
 
@@ -110,24 +110,44 @@ export const setEmployeeCompany =async (req : Request, res : Response) => {
         console.log(error);
         return res.status(400).json({
             success : false,
-            message : "Unable to Fetch User" + error
+            message : "Unable to set User's Company Id" + error
         })
     }
 }
+
+export const searchEmployeeByFilter = async (req: Request, res: Response) => {
+    try {
+      const field = Object.keys(req.query)[0]; 
+      const query = req.query[field] as string;
+      console.log(field + " " + query);
+      const companies = await searchUserByFilter(field, query);
+      return res.status(200).json({
+        success: true,
+        message: "Users Found",
+        companies: companies,
+      });
+    } catch (error) {
+      return res.status(400).json({
+        success: false,
+        message: "Unable to search User: " + error,
+      });
+    }
+  };
 
 export const loginEmployee = async (req : Request, res : Response) => {
     try {
         const {email, password} = req.body;
         const user = await loginUser(email, password); 
         const options = {
-            expires: new Date(Date.now() +   60 * 60 * 1000)
+            expires: new Date(Date.now() +   60 * 60 * 1000),
+            httpOnly: true, 
         }
-        const token = user.token;
-        return res.cookie('tokenName', token, options).status(200).json({
+        
+        return res.cookie('token', user.token, options).status(200).json({
             success : true,
-            message : "Logged in Successfully",
-            userDetails : user
-        })
+            message : "User Logged in",
+            user : user
+        });
     } catch (error) {
         console.log(error);
         return res.status(400).json({

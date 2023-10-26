@@ -8,6 +8,7 @@ import {
   findUser,
   deleteUser,
   findUserByEmail,
+  searchUser,
 } from "./user.dao";
 import { validateUser, validateUserUpdate } from "./user.validation";
 import { findCompanyById } from "../company/company.dao";
@@ -53,7 +54,7 @@ export const getallUsers = async () => {
     throw error;
   }
 };
-// eslint-disable-next-line
+
 export const updateUserById = async (id: any, data: object) => {
   try {
     const { value, error } = validateUserUpdate(data);
@@ -68,7 +69,7 @@ export const updateUserById = async (id: any, data: object) => {
     throw error;
   }
 };
-// eslint-disable-next-line
+
 export const findUserWithId = async (id: any) => {
   try {
     const user = await findUser(id);
@@ -81,7 +82,7 @@ export const findUserWithId = async (id: any) => {
     throw error;
   }
 };
-// eslint-disable-next-line
+
 export const deleteUserById = async (id: any) => {
   try {
     const user = await deleteUser(id);
@@ -94,7 +95,7 @@ export const deleteUserById = async (id: any) => {
     throw error;
   }
 };
-// eslint-disable-next-line
+
 export const updateUsersCompanyId = async (id : any, companyId : any ) => {
   try {
     const isUser = await findUser(id);
@@ -114,6 +115,17 @@ export const updateUsersCompanyId = async (id : any, companyId : any ) => {
     throw error;
   }
 };
+
+
+export const searchUserByFilter =async (field : string, query : string) => {
+  try {
+    const users = await searchUser(field, query);
+    return users;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
 
 
 export const loginUser =async (email: string , password : string) => {
@@ -144,3 +156,4 @@ export const loginUser =async (email: string , password : string) => {
     throw error;    
   }
 }
+

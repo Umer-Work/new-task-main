@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { createNewCompany, getCompanies, updateCompanyById, fetchCompanyById, deleteCompanyById } from "./company.service";
+import { createNewCompany, getCompanies, updateCompanyById, fetchCompanyById, deleteCompanyById, searchByFilter } from "./company.service";
 
 export const newCompany = async (req: Request, res: Response) => {
   try {
@@ -91,3 +91,21 @@ export const deleteCompany = async (req : Request, res : Response) => {
   }
 }
 
+export const searchCompanyByFilter = async (req: Request, res: Response) => {
+  try {
+    const field = Object.keys(req.query)[0]; 
+    const query = req.query[field] as string;
+    console.log(field + " " + query);
+    const companies = await searchByFilter(field, query);
+    return res.status(200).json({
+      success: true,
+      message: "Companies Found",
+      companies: companies,
+    });
+  } catch (error) {
+    return res.status(400).json({
+      success: false,
+      message: "Unable to search Company: " + error,
+    });
+  }
+};
