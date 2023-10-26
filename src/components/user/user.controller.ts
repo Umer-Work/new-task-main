@@ -134,20 +134,41 @@ export const searchEmployeeByFilter = async (req: Request, res: Response) => {
     }
   };
 
+// export const loginEmployee = async (req : Request, res : Response) => {
+//     try {
+//         const {email, password} = req.body;
+//         const user = await loginUser(email, password); 
+//         const options = {
+//             expires: new Date(Date.now() +   60 * 60 * 1000),
+//             httpOnly: true, 
+//         }
+        
+//         return res.cookie('token', user.token, options).status(200).json({
+//             success : true,
+//             message : "User Logged in",
+//             user : user
+//         });
+//     } catch (error) {
+//         console.log(error);
+//         return res.status(400).json({
+//             success : false,
+//             message : "Unable to Login User" + error
+//         })        
+//     }
+// }
+
 export const loginEmployee = async (req : Request, res : Response) => {
     try {
         const {email, password} = req.body;
         const user = await loginUser(email, password); 
-        const options = {
-            expires: new Date(Date.now() +   60 * 60 * 1000),
-            httpOnly: true, 
-        }
-        
-        return res.cookie('token', user.token, options).status(200).json({
-            success : true,
-            message : "User Logged in",
-            user : user
-        });
+        // const options = {
+        //     expires: new Date(Date.now() +   60 * 60 * 1000),
+        //     httpOnly: true, 
+        // }
+        res
+        .cookie('refreshToken', user.refreshToken, {httpOnly : true, sameSite: 'strict'})
+        .header('Authorization', user.token)
+        .send(user);
     } catch (error) {
         console.log(error);
         return res.status(400).json({

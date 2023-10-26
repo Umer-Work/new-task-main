@@ -31,7 +31,10 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         required: true,
       },
-      token : {
+      accesstoken : {
+        type : String
+      },
+      refreshToken: {
         type : String
       }
 });
