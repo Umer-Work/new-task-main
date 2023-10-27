@@ -166,8 +166,8 @@ export const loginEmployee = async (req : Request, res : Response) => {
         //     httpOnly: true, 
         // }
         res
-        .cookie('refreshToken', user.refreshToken, {httpOnly : true, sameSite: 'strict'})
-        .header('Authorization', user.token)
+        .cookie('refreshToken', user.refreshToken, {httpOnly : false, sameSite: 'strict'})
+        .header('Authorization', user.accessToken)
         .send(user);
     } catch (error) {
         console.log(error);

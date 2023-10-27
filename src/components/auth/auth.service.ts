@@ -39,24 +39,47 @@ dotenv.config();
 
 export const isAuth = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const token : any  = req.headers['authorization']; 
-    console.log(token);
-    if (!token) {
+    const accessToken : any  = req.headers['authorization'];
+    const refreshToken : any = req.cookies['refreshToken'];
+
+    console.log(accessToken);
+    if (!accessToken) {
       return res.status(401).json({
         success: false,
-        message: "Token is missing",
+        message: "Access Token is missing",
+      });
+    }
+    if (!refreshToken) {
+      return res.status(401).json({
+        success: false,
+        message: "Refresh Token is missing",
       });
     }
     
     const secretKey : any = process.env.JWT_SECRET_KEY;
     try {
-        const decodeToken =  jwt.verify(token, secretKey);
-        req.body.user = decodeToken;
+        const decodeAccessToken =  jwt.verify(accessToken, secretKey);
+        // console.log(req.body);
+        // console.log(decodeToken);
+        req.body.user = decodeAccessToken;
+        // console.log(req.body);
+
+        try {
+          const decodeRefreshToken = jwt.verify(refreshToken, secretKey);
+          req.body.user = decodeRefreshToken;
+          console.log(req.body);
+        } catch (error) {
+            return res.status(401).json({
+              success: false,
+              message: "Invalid Refresh token",
+            });
+        }
+
         next();
     } catch (error) {
         return res.status(401).json({
             success: false,
-            message: "Invalid token",
+            message: "Invalid Access token",
         }
     )}
     
@@ -79,7 +102,12 @@ export const refreshTokenController =async (req: Request, res: Response) => {
     }
     const secretKey : any = process.env.JWT_SECRET_KEY;
     try {
-      const decodeToken = jwt.verify(refreshToken, secretKey);
+      const decodeRefreshToken = jwt.verify(refreshToken, secretKey);
+      const accessToken = jwt.sign(decodeRefreshToken, secretKey)
+      
+      //User kaha se aayega ??
+      res.header('Authorization', accessToken).send(req.body.decodeRefreshToken);
+
     } catch (error) {
       console.log(error);
       return res.status(400).json({

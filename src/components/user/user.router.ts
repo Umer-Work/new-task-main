@@ -1,10 +1,12 @@
 import express, {Request , Response } from 'express';
 import { registerNewEmployee, deleteEmployeeById, getAllEmployee, getEmployeeById, setEmployeeCompany, updateEmployeeById, loginEmployee, searchEmployeeByFilter } from './user.controller';
-import { isAuth } from '../auth/auth.service';
+import { isAuth, refreshTokenController } from '../auth/auth.service';
 
 
 const userRouter = express.Router();
 
+
+userRouter.post('/refreshToken', refreshTokenController);
 
 userRouter.post('/createEmployee', registerNewEmployee);
 userRouter.post('/loginEmployee', loginEmployee);
@@ -21,7 +23,6 @@ userRouter.get("/searchEmployee", isAuth , searchEmployeeByFilter);
 
 userRouter.put('/updateEmployee/:id', isAuth, updateEmployeeById);
 userRouter.patch('/updateCompanyId/:id', isAuth, setEmployeeCompany);
-
 
 userRouter.delete('/deleteEmployee/:id', isAuth , deleteEmployeeById);
 

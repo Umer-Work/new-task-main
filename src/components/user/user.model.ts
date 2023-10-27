@@ -31,7 +31,7 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         required: true,
       },
-      accesstoken : {
+      accessToken : {
         type : String
       },
       refreshToken: {

@@ -144,10 +144,12 @@ export const loginUser =async (email: string , password : string) => {
       email : user.email,
       password : user.password
     }
-    const secretKey: any = process.env.JWT_SECRET_KEY; // eslint-disable-line
-    const token = jwt.sign(payload, secretKey, {expiresIn : 1800});
+    const secretKey: any = process.env.JWT_SECRET_KEY; 
+    const accessToken = jwt.sign(payload, secretKey, {expiresIn : 1800});
+    const refreshToken = jwt.sign(payload, secretKey, {expiresIn : '1d'});
 
-    user.token = token;
+    user.accessToken = accessToken;
+    user.refreshToken = refreshToken;
     await user.save();
 
     return user;
