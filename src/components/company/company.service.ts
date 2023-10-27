@@ -37,7 +37,7 @@ export const getCompanies = () => {
   }
 };
 
-export const updateCompanyById = (id: unknown, data: object) => {
+export const updateCompanyById = async (id: unknown, data: object) => {
   try {
     const { value, error }: any = updateCompanySchema.validate(data); 
     if (error) {
@@ -46,7 +46,11 @@ export const updateCompanyById = (id: unknown, data: object) => {
           error.details.map((detail: any) => detail.message).join(", ") 
       );
     }
-    const companyUpdated = findCompanyAndUpdate(id, value);
+    const company = await findCompanyById(id);
+    if(!company){
+      throw new Error('Please provide valid Company id');
+    }    
+    const companyUpdated = await findCompanyAndUpdate(id, value);
     return companyUpdated;
   } catch (error) {
     console.log(error);
@@ -81,9 +85,19 @@ export const deleteCompanyById = async (id: any) => {
   }
 };
 
-export const searchByFilter =async (field : string, query : string) => {
+// export const searchByFilter =async (field : string, query : string) => {
+//   try {
+//     const companies = await searchCompany(field, query);
+//     return companies;
+//   } catch (error) {
+//     console.log(error);
+//     throw error;
+//   }
+// }
+
+export const searchByFilter =async (query : string) => {
   try {
-    const companies = await searchCompany(field, query);
+    const companies = await searchCompany(query);
     return companies;
   } catch (error) {
     console.log(error);

@@ -20,7 +20,7 @@ export const createNewUser = async (data: object) => {
     const { value, error } = validateUser(data);
 
     if (error) {
-      throw new Error("Error : " + error);
+      throw new Error(error.message);
     }
     const saltRound: number = 10;
     const hashedPassword = await bcrypt.hash(value.password, saltRound);
@@ -117,9 +117,12 @@ export const updateUsersCompanyId = async (id : any, companyId : any ) => {
 };
 
 
-export const searchUserByFilter =async (field : string, query : string) => {
+export const searchUserByFilter =async (query : string) => {
   try {
-    const users = await searchUser(field, query);
+    const users = await searchUser(query);
+    if(users.length === 0){
+      throw new Error('No User Found');
+    }
     return users;
   } catch (error) {
     console.log(error);
@@ -141,8 +144,7 @@ export const loginUser =async (email: string , password : string) => {
     }
 
     const payload = {
-      email : user.email,
-      password : user.password
+      email : user.email
     }
     const secretKey: any = process.env.JWT_SECRET_KEY; 
     const accessToken = jwt.sign(payload, secretKey, {expiresIn : 1800});

@@ -36,17 +36,10 @@ export const findUserByDesignation = async (data: string) => {
   return users;
 };
 
-export const searchUser =async (field : string, query : string) => {
-  let filter: any = {};
-  if (field === "firstName") {
-    filter = { firstName: { $regex: new RegExp(query, 'i') } };
-  } else if (field === "lastName") {
-    filter = { lastName: { $regex: new RegExp(query, 'i') } };
-  } else if (field === "email") {
-    filter = { email: { $regex: new RegExp(query, 'i') } };
-  } else if (field === "designation") {
-    filter = { designation: { $regex: new RegExp(query, 'i') } };
-  }
-const companies = await User.find(filter);
-return companies;
-}
+export const searchUser = async (query: string) => {
+  const filter = new RegExp(query, "i");
+  const users = await User.find({
+    $or: [{ firstName: filter }, { lastName: filter }, { email: filter }, { designation: filter },],
+  });
+  return users;
+};

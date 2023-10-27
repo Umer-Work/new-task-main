@@ -1,8 +1,21 @@
 import Joi from "joi";
 import mongoose from "mongoose";
 
-const userJoiSchema = Joi.object({
-  firstName: Joi.string().required(),
+// interface IuserJoiSchema {
+//   firstName: string;
+//   lastName: string;
+//   email: string;
+//   password: string;
+//   designation: "MANAGER" | "TEAM_LEADER" | "DEVELOPER";
+//   companyId: string;
+//   isVerified: boolean;
+//   token?: string | null;
+// }
+
+const userJoiSchema = Joi.object ({
+  firstName: Joi.string().required().min(3).messages({
+    'string.min' : 'First Name should be at least 3 characters long', 
+  }),
   lastName: Joi.string().required(),
   email: Joi.string().email().required(),
   password: Joi.string().required(),

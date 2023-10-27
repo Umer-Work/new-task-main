@@ -23,6 +23,12 @@ export const newCompany = async (req: Request, res: Response) => {
 export const fetchAllCompanies = async (req: Request, res: Response) => {
   try {
     const allCompanies = await getCompanies();
+    if(allCompanies.length === 0){
+      return res.status(404).json({
+        success: true,
+        message: "No Company is there in database",
+      });      
+    }
     return res.status(200).json({
       success: true,
       message: "Company created Successfully",
@@ -61,6 +67,12 @@ export const getCompanyById = async (req: Request, res: Response) => {
   try {
     const {id} = req.params;
     const company = await fetchCompanyById(id);
+    if(!company){
+      return res.status(404).json({
+        success: true,
+        message: "No Company Found by this id",
+      })      
+    }
     return res.status(200).json({
       success: true,
       message: "Company Fetched",
@@ -96,7 +108,13 @@ export const searchCompanyByFilter = async (req: Request, res: Response) => {
     const field = Object.keys(req.query)[0]; 
     const query = req.query[field] as string;
     console.log(field + " " + query);
-    const companies = await searchByFilter(field, query);
+    const companies = await searchByFilter(query);
+    if(companies.length === 0){
+      return res.status(404).json({
+        success: true,
+        message: "No Company Found",
+      });      
+    }
     return res.status(200).json({
       success: true,
       message: "Companies Found",

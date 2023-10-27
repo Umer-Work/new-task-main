@@ -39,7 +39,7 @@ dotenv.config();
 
 export const isAuth = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const accessToken : any  = req.headers['authorization'];
+    const accessToken : any  = req.headers['Authorization'];
     const refreshToken : any = req.cookies['refreshToken'];
 
     console.log(accessToken);
@@ -102,11 +102,11 @@ export const refreshTokenController =async (req: Request, res: Response) => {
     }
     const secretKey : any = process.env.JWT_SECRET_KEY;
     try {
-      const decodeRefreshToken = jwt.verify(refreshToken, secretKey);
+      const decodeRefreshToken = jwt.verify(refreshToken, secretKey, {});
       const accessToken = jwt.sign(decodeRefreshToken, secretKey)
       
       //User kaha se aayega ??
-      res.header('Authorization', accessToken).send(req.body.decodeRefreshToken);
+      res.header('Authorization', accessToken).send(accessToken);
 
     } catch (error) {
       console.log(error);

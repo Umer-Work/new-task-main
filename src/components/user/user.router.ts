@@ -18,7 +18,7 @@ userRouter.get('/protectedRoute', isAuth ,(req : Request ,res : Response )=>{
 
 userRouter.get('/getAllEmployee', isAuth ,getAllEmployee);
 userRouter.get('/getEmployee/:id', isAuth, getEmployeeById);
-userRouter.get("/searchEmployee", isAuth , searchEmployeeByFilter);
+userRouter.get("/searchEmployee" , searchEmployeeByFilter);
 
 
 userRouter.put('/updateEmployee/:id', isAuth, updateEmployeeById);

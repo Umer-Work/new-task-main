@@ -16,7 +16,7 @@ export const registerNewEmployee = async (req : Request, res : Response) => {
         console.log(error);
         return res.status(400).json({
             success : false,
-            message : "Unable to create Employee at the moment : " + error
+            messages  : `${error}`
         })
     }
 } 
@@ -120,7 +120,7 @@ export const searchEmployeeByFilter = async (req: Request, res: Response) => {
       const field = Object.keys(req.query)[0]; 
       const query = req.query[field] as string;
       console.log(field + " " + query);
-      const companies = await searchUserByFilter(field, query);
+      const companies = await searchUserByFilter(query);
       return res.status(200).json({
         success: true,
         message: "Users Found",
@@ -163,7 +163,9 @@ export const loginEmployee = async (req : Request, res : Response) => {
         const user = await loginUser(email, password); 
         // const options = {
         //     expires: new Date(Date.now() +   60 * 60 * 1000),
-        //     httpOnly: true, 
+        //     httpOnly: true,
+            
+        
         // }
         res
         .cookie('refreshToken', user.refreshToken, {httpOnly : false, sameSite: 'strict'})
