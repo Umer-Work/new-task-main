@@ -66,13 +66,8 @@ export const updateCompany = async (req: Request, res: Response) => {
 export const getCompanyById = async (req: Request, res: Response) => {
   try {
     const {id} = req.params;
+    console.log(id)
     const company = await fetchCompanyById(id);
-    if(!company){
-      return res.status(404).json({
-        success: true,
-        message: "No Company Found by this id",
-      })      
-    }
     return res.status(200).json({
       success: true,
       message: "Company Fetched",
@@ -81,7 +76,7 @@ export const getCompanyById = async (req: Request, res: Response) => {
   } catch (error) {
     return res.status(400).json({
       success: false,
-      message: "Unable to update Company's Information" + error,
+      message: "" + error,
     });
   }
 }

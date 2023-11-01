@@ -4,7 +4,6 @@ import {
   deleteCompany,
   findCompanyAndUpdate,
   getAllCompanies,
-  getCompanyById,
   findCompanyById,
   searchCompany,
   
@@ -58,15 +57,16 @@ export const updateCompanyById = async (id: unknown, data: object) => {
   }
 };
 
-export const fetchCompanyById = (id: any) => {
+export const fetchCompanyById = async (companyId: any) => {
   try {
-    const company = getCompanyById(id);
-    if (!company) {
+    const company = await findCompanyById(companyId);
+    console.log(company)
+    if (company.length === 0) {
       throw new Error("Company not Found, Please provide valid Company Id");
     }
     return company;
   } catch (error) {
-    console.log(error);
+    console.log(error); 
     throw error;
   }
 };
