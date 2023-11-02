@@ -1,4 +1,5 @@
 import User from "./user.model";
+import mongoose from "mongoose";
 
 export const createUser = async (data: object) => {
   const newUser = await User.create(data);
@@ -6,18 +7,28 @@ export const createUser = async (data: object) => {
 };
 
 export const findUser = async (id: any) => {
-  const user = await User.findById(id);
+  const ObjectId = mongoose.Types.ObjectId;
+  const user = await User.aggregate([
+    {$match : {_id: new ObjectId(id)}}
+  ]);
   return user;
 };
 
 export const findAllUser = async () => {
-  const allUser = await User.find();
+  const allUser = await User.aggregate([
+    {$match : {}}
+  ]);
   return allUser;
 };
 
 export const findUserAndUpdate = async (id: any, data: object) => {
-  const user = await User.findByIdAndUpdate(id, data, { new: true });
-  return user;
+  const ObjectId = mongoose.Types.ObjectId;
+  const updateUserInfo = await User.aggregate([
+    {$match : {_id: new ObjectId(id)}},
+    {$replaceRoot : { newRoot : {$mergeObjects : ['$$ROOT', data]}}},
+  ]);
+  const updatedUser = await User.findByIdAndUpdate({_id : updateUserInfo[0]._id }, updateUserInfo[0], {new:true})
+  return updatedUser;
 };
 
 export const deleteUser = async (id: any) => {
@@ -30,16 +41,10 @@ export const findUserByEmail = async (email: string) => {
   return user;
 };
 
-export const findUserByDesignation = async (data: string) => {
-  const users = await User.find({ designation: data }, { new: true });
-  console.log(users);
-  return users;
-};
-
 export const searchUser = async (query: string) => {
   const filter = new RegExp(query, "i");
-  const users = await User.find({
-    $or: [{ firstName: filter }, { lastName: filter }, { email: filter }, { designation: filter },],
-  });
+  const users = await User.aggregate([
+    {$match : {$or: [{ firstName: filter }, { lastName: filter }, { email: filter }, { designation: filter }]}}  
+  ]);
   return users;
 };

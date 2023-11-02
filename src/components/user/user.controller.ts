@@ -24,7 +24,6 @@ export const registerNewEmployee = async (req : Request, res : Response) => {
 export const getAllEmployee =async (req : Request, res : Response) => {
     try {
         const allUser = await getallUsers();
-        console.log(allUser);
         return res.status(200).json({
             success : true,
             message : "All Users Fetched",

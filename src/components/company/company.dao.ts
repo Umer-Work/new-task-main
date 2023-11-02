@@ -29,7 +29,7 @@ export const findCompanyAndUpdate = async (id: any, data: object) => {
     {$replaceRoot: { newRoot: { $mergeObjects: [ "$$ROOT", data ] } }},
   ]);
   // How to change value in database???
-  const company = await Company.findOneAndUpdate({_id : updateCompanyInfo[0]._id}, updateCompanyInfo[0], {new:true})
+  const company = await Company.findOneAndUpdate({_id : id}, updateCompanyInfo[0], {new:true})
   return company;
 };
 

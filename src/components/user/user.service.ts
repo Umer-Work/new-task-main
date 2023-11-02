@@ -29,7 +29,7 @@ export const createNewUser = async (data: object) => {
 
     //Company Validation ?
     const isCompany = await findCompanyById(value.companyId);
-    if (!isCompany) {
+    if (isCompany.length === 0) {
       throw new Error("Company not found, Please provide valid company Id");
     }
 
