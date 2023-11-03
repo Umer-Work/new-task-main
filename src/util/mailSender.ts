@@ -1,30 +1,32 @@
-// import nodemailer from 'nodemailer';
-// import dotenv from 'dotenv';
+import nodemailer from "nodemailer";
+import dotenv from "dotenv";
+import { emailVerificationTemplate } from "../templates/emailVerificationTemplate";
 
-// dotenv.config();
+dotenv.config();
 
-// export const sendVerificationEmail =async (email : string, verificationToken : string) => {
-//     try {
-//         const transporter = nodemailer.createTransport{
-//             host : 'smtp.gmail.com',
-//             auth : {
-//                 user : 'karachiwalaumer2612@gmail.com',
-//                 pass : 'Soul'
-//             }
-//         }
-//         // const verificationLink = `https://example.com/verify?token=${verificationToken}`;
+export const emailVerification = async (email: string) => {
+  try {
+    const transporter = nodemailer.createTransport({
+      host: process.env.MAIL_HOST,
+      auth: {
+        user: process.env.MAIL_USER,
+        pass: process.env.MAIL_PASS,
+      },
+      secure: false,
+    });
 
-//         const info = await transporter.sendMail({
-//             from: 'WebOsmotics',
-//             to: email,
-//             subject: 'Email Verification',
-//             // text: `Click the following link to verify your email: ${verificationLink}`,
-//             text : 'Click the following link to verify your email'
-//         });
-//         console.log(info);
-//         return info;
-//     } catch (error) {
-//         console.log(error);
-//         throw error;
-//     }
-// }
+    const verificationLink = "www.dummy.link.com";
+    const emailHTML = emailVerificationTemplate(verificationLink);
+
+    const info = await transporter.sendMail({
+      from: process.env.MAIL_USER,
+      to: `${email}`,
+      subject: "Email Verification",
+      html: emailHTML,
+    });
+
+    return info;
+  } catch (error) {
+    return error;
+  }
+};

@@ -12,6 +12,7 @@ import {
 } from "./user.dao";
 import { validateUser, validateUserUpdate } from "./user.validation";
 import { findCompanyById } from "../company/company.dao";
+import { emailVerification } from "../../util/mailSender";
 
 dotenv.config();
 
@@ -33,6 +34,7 @@ export const createNewUser = async (data: object) => {
       throw new Error("Company not found, Please provide valid company Id");
     }
 
+    await emailVerification(value.email);
     const newUser = await createUser(value);
     return newUser;
   } catch (error) {
