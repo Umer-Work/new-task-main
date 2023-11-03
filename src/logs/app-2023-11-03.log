@@ -12,3 +12,5 @@
 {"environment":"development","level":"info","message":{"method":"GET","requestBody":{},"responseStatus":500,"responseTime":"2ms","url":"/error"},"timestamp":"Nov-03-2023 18:38:05"}
 {"environment":"development","level":"info","message":{"method":"GET","requestBody":{},"responseStatus":500,"responseTime":"10ms","url":"/error"},"timestamp":"Nov-03-2023 18:39:34"}
 {"environment":"development","level":"info","message":{"method":"GET","requestBody":{},"responseStatus":500,"responseTime":"17ms","url":"http://localhost:3000/error"},"timestamp":"Nov-03-2023 18:42:15"}
+{"environment":"development","level":"info","message":{"method":"GET","requestBody":{},"responseStatus":401,"responseTime":"6ms","url":"http://localhost:3000/getAllEmployee"},"timestamp":"Nov-03-2023 18:58:46"}
+{"environment":"development","level":"info","message":{"method":"PUT","requestBody":{"firstName":"Bob"},"responseStatus":401,"responseTime":"1ms","url":"http://localhost:3000/updateEmployee/6542240e71bcf160fd165c56"},"timestamp":"Nov-03-2023 19:00:07"}
