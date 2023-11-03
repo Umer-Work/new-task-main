@@ -4,6 +4,7 @@ import { refreshTokenController } from '../auth/auth.service';
 import { verifyingAuthentication } from '../auth/auth.controller';
 
 
+
 const userRouter = express.Router();
 
 
@@ -26,5 +27,16 @@ userRouter.put('/updateEmployee/:id', verifyingAuthentication, updateEmployeeByI
 userRouter.patch('/updateCompanyId/:id', verifyingAuthentication, setEmployeeCompany);
 
 userRouter.delete('/deleteEmployee/:id', verifyingAuthentication , deleteEmployeeById);
+
+
+
+//TEST LOGGER ROUTES
+userRouter.get('/warning',(req : Request, res : Response) => {
+    res.status(400).send('warning route');
+})
+
+userRouter.get('/error',(req : Request, res : Response) => {
+    res.status(500).send('warning route');
+})
 
 export default userRouter;

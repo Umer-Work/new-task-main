@@ -1,0 +1,14 @@
+{"environment":"development","level":"info","message":{"method":"GET","requestBody":{},"responseStatus":500,"responseTime":"11ms","url":"/error"},"timestamp":"Nov-03-2023 18:20:22"}
+{"environment":"development","level":"info","message":{"method":"GET","requestBody":{},"responseStatus":400,"responseTime":"2ms","url":"/Warning"},"timestamp":"Nov-03-2023 18:20:23"}
+{"environment":"development","level":"info","message":{"method":"GET","requestBody":{},"responseStatus":500,"responseTime":"2ms","url":"/error"},"timestamp":"Nov-03-2023 18:20:24"}
+{"environment":"development","level":"info","message":{"method":"GET","requestBody":{},"responseStatus":400,"responseTime":"2ms","url":"/Warning"},"timestamp":"Nov-03-2023 18:20:25"}
+{"environment":"development","level":"info","message":{"method":"GET","requestBody":{},"responseStatus":500,"responseTime":"2ms","url":"/error"},"timestamp":"Nov-03-2023 18:20:25"}
+{"environment":"development","level":"info","message":{"method":"GET","requestBody":{},"responseStatus":400,"responseTime":"1ms","url":"/Warning"},"timestamp":"Nov-03-2023 18:20:26"}
+{"environment":"development","level":"info","message":{"method":"GET","requestBody":{},"responseStatus":500,"responseTime":"1ms","url":"/error"},"timestamp":"Nov-03-2023 18:20:27"}
+{"environment":"development","level":"info","message":{"method":"GET","requestBody":{},"responseStatus":400,"responseTime":"1ms","url":"/Warning"},"timestamp":"Nov-03-2023 18:20:27"}
+{"environment":"development","level":"info","message":{"method":"GET","requestBody":{},"responseStatus":500,"responseTime":"4ms","url":"/error"},"timestamp":"Nov-03-2023 18:20:28"}
+{"environment":"development","level":"info","message":{"method":"GET","requestBody":{},"responseStatus":400,"responseTime":"2ms","url":"/Warning"},"timestamp":"Nov-03-2023 18:20:29"}
+{"environment":"development","level":"info","message":{"method":"GET","requestBody":{},"responseStatus":404,"responseTime":"7ms","url":"/favicon.ico"},"timestamp":"Nov-03-2023 18:20:29"}
+{"environment":"development","level":"info","message":{"method":"GET","requestBody":{},"responseStatus":500,"responseTime":"2ms","url":"/error"},"timestamp":"Nov-03-2023 18:38:05"}
+{"environment":"development","level":"info","message":{"method":"GET","requestBody":{},"responseStatus":500,"responseTime":"10ms","url":"/error"},"timestamp":"Nov-03-2023 18:39:34"}
+{"environment":"development","level":"info","message":{"method":"GET","requestBody":{},"responseStatus":500,"responseTime":"17ms","url":"http://localhost:3000/error"},"timestamp":"Nov-03-2023 18:42:15"}

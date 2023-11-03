@@ -7,7 +7,6 @@ dotenv.config();
 export const isAuth = async (req: Request,res: Response,next: NextFunction) => {
   try {
     const accessToken: any = req.headers["authorization"];
-    console.log(req.headers)
     const refreshToken: any = req.cookies["refreshToken"];
 
     if (!accessToken || !refreshToken) {
