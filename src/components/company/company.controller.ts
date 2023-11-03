@@ -14,11 +14,11 @@ export const newCompany = async (req: Request, res: Response) => {
     console.error(error);
     return res.status(400).json({
       success: false,
-      message: "Cannot create a new company at the moment",
+      message: "Cannot create a new company at the moment" + `${error}`,
       error: error,
     });
   }
-};
+}; 
 
 export const fetchAllCompanies = async (req: Request, res: Response) => {
   try {
@@ -38,7 +38,7 @@ export const fetchAllCompanies = async (req: Request, res: Response) => {
     console.log(error);
     return res.status(400).json({
       success: false,
-      message: "Unable to Fetched all Companies",
+      message: "Unable to Fetched all Companies" + `${error}`,
     });
   }
 };
@@ -58,7 +58,7 @@ export const updateCompany = async (req: Request, res: Response) => {
   } catch (error) {
     return res.status(400).json({
       success: false,
-      message: "Unable to update Company's Information" + error,
+      message: "Unable to update Company's Information" + `${error}`,
     });
   }
 };
@@ -76,7 +76,7 @@ export const getCompanyById = async (req: Request, res: Response) => {
   } catch (error) {
     return res.status(400).json({
       success: false,
-      message: "" + error,
+      message: "Error While getting Company" + `${error}`,
     });
   }
 }
@@ -93,7 +93,7 @@ export const deleteCompany = async (req : Request, res : Response) => {
   } catch (error) {
     return res.status(400).json({
       success: false,
-      message: "Unable to delete Company" + error,
+      message: "Unable to delete Company" + `${error}`,
     });
   }
 }
@@ -118,7 +118,7 @@ export const searchCompanyByFilter = async (req: Request, res: Response) => {
   } catch (error) {
     return res.status(400).json({
       success: false,
-      message: "Unable to search Company: " + error,
+      message: "Unable to search Company: " + `${error}`,
     });
   }
 };

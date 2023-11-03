@@ -40,7 +40,7 @@ export const getAllEmployee = async (req: Request, res: Response) => {
   } catch (error) {
     return res.status(400).json({
       success: false,
-      message: "Unable to fetch all Users" + error,
+      message: "Unable to fetch all Users" + `${error}`,
     });
   }
 };
@@ -60,7 +60,7 @@ export const updateEmployeeById = async (req: Request, res: Response) => {
   } catch (error) {
     return res.status(400).json({
       success: false,
-      message: "Unable to update User" + error,
+      message: "Unable to update User" + `${error}`,
     });
   }
 };
@@ -69,6 +69,12 @@ export const getEmployeeById = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const user = await findUserWithId(id);
+    if(!user){
+        return res.status(404).json({
+            success: false,
+            message: "User Not Found",
+        })
+    }
     return res.status(200).json({
       success: true,
       message: "User Fetched Successfully",
@@ -78,7 +84,7 @@ export const getEmployeeById = async (req: Request, res: Response) => {
     console.log(error);
     return res.status(400).json({
       success: false,
-      message: "Unable to Fetch User" + error,
+      message: "Unable to Fetch User" + `${error}`,
     });
   }
 };
@@ -95,7 +101,7 @@ export const deleteEmployeeById = async (req: Request, res: Response) => {
     console.log(error);
     return res.status(400).json({
       success: false,
-      message: "Unable to delete User" + error,
+      message: "Unable to delete User" + `${error}`,
     });
   }
 };
@@ -116,7 +122,7 @@ export const setEmployeeCompany = async (req: Request, res: Response) => {
     console.log(error);
     return res.status(400).json({
       success: false,
-      message: "Unable to set User's Company Id" + error,
+      message: "Unable to set User's Company Id" + `${error}`,
     });
   }
 };
@@ -133,9 +139,9 @@ export const searchEmployeeByFilter = async (req: Request, res: Response) => {
       companies: companies,
     });
   } catch (error) {
-    return res.status(400).json({
+    return res.status(500).json({
       success: false,
-      message: "Unable to search User: " + error,
+      message: "Unable to search User: " + `${error}`,
     });
   }
 };
@@ -155,9 +161,9 @@ export const loginEmployee = async (req: Request, res: Response) => {
       .send(user);
   } catch (error) {
     console.log(error);
-    return res.status(400).json({
+    return res.status(401).json({
       success: false,
-      message: "Unable to Login User" + error,
+      message: "Unable to Login User" + `${error}`,
     });
   }
 };

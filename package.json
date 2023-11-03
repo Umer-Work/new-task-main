@@ -39,7 +39,8 @@
     "lru-cache": "^10.0.1",
     "mongoose": "^7.6.2",
     "nodemailer": "^6.9.7",
-    "types-joi": "^2.1.0"
+    "types-joi": "^2.1.0",
+    "winston": "^3.11.0"
   },
   "nodemonConfig": {
     "watch": [
