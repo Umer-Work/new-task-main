@@ -1,5 +1,18 @@
 import mongoose from "mongoose";
 
+export interface IUser {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  designation: string;
+  companyId: string;
+  isVerified: boolean;
+  profilePicture: string;
+  accessToken?: string;
+  refreshToken?: string;
+}
+
 const userSchema = new mongoose.Schema({
     firstName: {
         type: String,

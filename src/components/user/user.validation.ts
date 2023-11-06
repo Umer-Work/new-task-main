@@ -31,7 +31,7 @@ const userJoiSchema = Joi.object ({
     })
     .required(),
   isVerified: Joi.boolean().required(),
-  token: Joi.string().allow("", null).optional()
+  token: Joi.string().allow("", null).optional(),
 });
 
 export function validateUser(user: object) {
@@ -51,7 +51,7 @@ const updateUserJoiSchema = Joi.object({
     return value;
   }),
   isVerified: Joi.boolean(),
-  token: Joi.string().allow("", null)
+  token: Joi.string().allow("", null),
 });
 
 export function validateUserUpdate(user: object) {

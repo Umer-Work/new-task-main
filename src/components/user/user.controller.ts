@@ -10,9 +10,10 @@ import {
 } from "./user.service";
 import { Request, Response } from "express";
 
+
 export const registerNewEmployee = async (req: Request, res: Response) => {
   try {
-    const data = req.body;
+    const data = req.body
     const newUser = await createNewUser(data);
 
     return res.status(201).json({

@@ -5,8 +5,9 @@ import companyRouter from './components/company/company.router';
 import userRouter from './components/user/user.router';
 import cookieParser from 'cookie-parser';
 import { LogAPI } from './middleware/logger.middleware';
-// import {transports,format} from 'winston';
-// import expressWinston from 'express-winston';
+import { upload } from './util/multer';
+import { registerNewEmployee } from './components/user/user.controller';
+
 
 const app = express();
 
@@ -16,30 +17,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 
-
+// Logs Middleware
 app.use(LogAPI);
-// // Add Logger Middleware {Using Winston Library}
-// app.use(expressWinston.logger({
-//   transports : [
-//     new transports.File({
-//       level : 'warn',
-//       filename: 'src/logs/warningLogger.log'
-//     }),
-//     new transports.File({
-//       level : 'error',
-//       filename: 'src/logs/errorLogger.log'
-//     }),
-//   ],
-//   format : format.combine(
-//     format.json(),
-//     format.timestamp({format: 'MMM-DD-YYYY HH:mm:ss'}),
-//     format.prettyPrint()
-//   ),
-//   statusLevels : true
-// }));
 
 
+//Multer
+app.get('/', function (req, res) {
+  res.sendFile(__dirname + '/create.html');
+});
 
+app.post('/register', upload.single('filename'),registerNewEmployee)
 
 
 connectDatabase();

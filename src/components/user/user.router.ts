@@ -2,7 +2,7 @@ import express, {Request , Response } from 'express';
 import { registerNewEmployee, deleteEmployeeById, getAllEmployee, getEmployeeById, setEmployeeCompany, updateEmployeeById, loginEmployee, searchEmployeeByFilter } from './user.controller';
 import { refreshTokenController } from '../auth/auth.service';
 import { verifyingAuthentication } from '../auth/auth.controller';
-
+import { upload } from '../../util/multer';
 
 
 const userRouter = express.Router();
@@ -10,7 +10,7 @@ const userRouter = express.Router();
 
 userRouter.post('/refreshToken', refreshTokenController);
 
-userRouter.post('/createEmployee', registerNewEmployee);
+userRouter.post('/createEmployee',upload.single('profilePicture'), registerNewEmployee);
 userRouter.post('/loginEmployee', loginEmployee);
 
 
@@ -18,7 +18,7 @@ userRouter.get('/protectedRoute', verifyingAuthentication ,(req : Request ,res :
     res.send('Welcome to protected route');
 })
 
-userRouter.get('/getAllEmployee', verifyingAuthentication ,getAllEmployee);
+userRouter.get('/getAllEmployee' ,getAllEmployee);
 userRouter.get('/getEmployee/:id', verifyingAuthentication, getEmployeeById);
 userRouter.get("/searchEmployee" , verifyingAuthentication, searchEmployeeByFilter);
 

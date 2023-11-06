@@ -14,9 +14,10 @@ import { validateUser, validateUserUpdate } from "./user.validation";
 import { findCompanyById } from "../company/company.dao";
 import { emailVerification } from "../../util/mailSender";
 
+
 dotenv.config();
 
-export const createNewUser = async (data: object) => {
+export const createNewUser = async (data: any) => {
   try {
     const { value, error } = validateUser(data);
 
@@ -28,13 +29,14 @@ export const createNewUser = async (data: object) => {
 
     value.password = hashedPassword;
 
-    //Company Validation ?
     const isCompany = await findCompanyById(value.companyId);
     if (isCompany.length === 0) {
       throw new Error("Company not found, Please provide valid company Id");
     }
 
     await emailVerification(value.email);
+    console.log(value)
+    
     const newUser = await createUser(value);
     return newUser;
   } catch (error) {
