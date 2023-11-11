@@ -1,16 +1,6 @@
 import Joi from "joi";
 import mongoose from "mongoose";
 
-// interface IuserJoiSchema {
-//   firstName: string;
-//   lastName: string;
-//   email: string;
-//   password: string;
-//   designation: "MANAGER" | "TEAM_LEADER" | "DEVELOPER";
-//   companyId: string;
-//   isVerified: boolean;
-//   token?: string | null;
-// }
 
 const userJoiSchema = Joi.object ({
   firstName: Joi.string().required().min(3).messages({
@@ -31,6 +21,7 @@ const userJoiSchema = Joi.object ({
     })
     .required(),
   isVerified: Joi.boolean().required(),
+  profileImage : Joi.string().allow("",null).optional(),
   token: Joi.string().allow("", null).optional(),
 });
 

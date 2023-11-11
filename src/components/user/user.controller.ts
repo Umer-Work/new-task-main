@@ -9,11 +9,31 @@ import {
   searchUserByFilter,
 } from "./user.service";
 import { Request, Response } from "express";
-
+import path from "path";
+import fs from "fs";
+import { drive } from "../../util/googleDriveService";
 
 export const registerNewEmployee = async (req: Request, res: Response) => {
   try {
     const data = req.body
+    console.log("current dir :" + __dirname);
+    if(req.file){
+      data.profileImage = req.file.filename;
+      const filePath = path.join(__dirname, '../../uploads', req.file.filename);
+      const response = await drive.files.create({
+        requestBody: {
+          name: req.file.filename, 
+          mimeType: req.file.mimetype,
+          parents : ["1DPpNTpkUv6EpNcLKVL7tnqxvI6dQZ8XE"]
+        },
+        media: {
+          mimeType: req.file.mimetype,
+          body: fs.createReadStream(filePath),
+        },
+      });
+      console.log('File uploaded to Google Drive:', response.data);
+    }
+
     const newUser = await createNewUser(data);
 
     return res.status(201).json({

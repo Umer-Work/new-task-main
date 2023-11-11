@@ -5,7 +5,7 @@ import companyRouter from './components/company/company.router';
 import userRouter from './components/user/user.router';
 import cookieParser from 'cookie-parser';
 import { LogAPI } from './middleware/logger.middleware';
-import { upload } from './util/multer';
+import { upload } from './util/multerService';
 import { registerNewEmployee } from './components/user/user.controller';
 
 

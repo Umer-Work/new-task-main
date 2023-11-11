@@ -1,5 +1,4 @@
 import User from "./user.model";
-import mongoose from "mongoose";
 
 export const createUser = async (data: object) => {
   const newUser = await User.create(data);
@@ -7,27 +6,17 @@ export const createUser = async (data: object) => {
 };
 
 export const findUser = async (id: any) => {
-  const ObjectId = mongoose.Types.ObjectId;
-  const user = await User.aggregate([
-    {$match : {_id: new ObjectId(id)}}
-  ]);
+  const user = await User.findById(id);
   return user;
 };
 
 export const findAllUser = async () => {
-  const allUser = await User.aggregate([
-    {$match : {}}
-  ]);
+  const allUser = await User.find();
   return allUser;
 };
 
 export const findUserAndUpdate = async (id: any, data: object) => {
-  const ObjectId = mongoose.Types.ObjectId;
-  const updateUserInfo = await User.aggregate([
-    {$match : {_id: new ObjectId(id)}},
-    {$replaceRoot : { newRoot : {$mergeObjects : ['$$ROOT', data]}}},
-  ]);
-  const updatedUser = await User.findByIdAndUpdate({_id : updateUserInfo[0]._id }, updateUserInfo[0], {new:true})
+  const updatedUser = await User.findByIdAndUpdate(id, data, {new : true});
   return updatedUser;
 };
 

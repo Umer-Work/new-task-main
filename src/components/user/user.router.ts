@@ -2,7 +2,7 @@ import express, {Request , Response } from 'express';
 import { registerNewEmployee, deleteEmployeeById, getAllEmployee, getEmployeeById, setEmployeeCompany, updateEmployeeById, loginEmployee, searchEmployeeByFilter } from './user.controller';
 import { refreshTokenController } from '../auth/auth.service';
 import { verifyingAuthentication } from '../auth/auth.controller';
-import { upload } from '../../util/multer';
+import { upload } from '../../util/multerService';
 
 
 const userRouter = express.Router();
@@ -10,7 +10,7 @@ const userRouter = express.Router();
 
 userRouter.post('/refreshToken', refreshTokenController);
 
-userRouter.post('/createEmployee',upload.single('profilePicture'), registerNewEmployee);
+userRouter.post('/createEmployee',upload.single('profileImage'), registerNewEmployee);
 userRouter.post('/loginEmployee', loginEmployee);
 
 

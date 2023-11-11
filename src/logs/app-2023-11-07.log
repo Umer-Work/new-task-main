@@ -1,0 +1,7 @@
+{"environment":"development","level":"info","message":{"method":"POST","requestBody":{},"responseStatus":201,"responseTime":"3432ms","url":"http://localhost:3000/createEmployee"},"timestamp":"Nov-07-2023 10:51:45"}
+{"environment":"development","level":"info","message":{"method":"POST","requestBody":{},"responseStatus":400,"responseTime":"34ms","url":"http://localhost:3000/createEmployee"},"timestamp":"Nov-07-2023 10:53:09"}
+{"environment":"development","level":"info","message":{"method":"POST","requestBody":{},"responseStatus":201,"responseTime":"3075ms","url":"http://localhost:3000/createEmployee"},"timestamp":"Nov-07-2023 10:53:31"}
+{"environment":"development","level":"info","message":{"method":"POST","requestBody":{},"responseStatus":201,"responseTime":"5808ms","url":"http://localhost:3000/createEmployee"},"timestamp":"Nov-07-2023 16:27:43"}
+{"environment":"development","level":"info","message":{"method":"POST","requestBody":{},"responseStatus":201,"responseTime":"6626ms","url":"http://localhost:3000/createEmployee"},"timestamp":"Nov-07-2023 16:34:51"}
+{"environment":"development","level":"info","message":{"method":"POST","requestBody":{},"responseStatus":201,"responseTime":"5459ms","url":"http://localhost:3000/createEmployee"},"timestamp":"Nov-07-2023 16:40:04"}
+{"environment":"development","level":"info","message":{"method":"POST","requestBody":{},"responseStatus":201,"responseTime":"5446ms","url":"http://localhost:3000/createEmployee"},"timestamp":"Nov-07-2023 17:55:31"}
