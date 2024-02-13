@@ -13,7 +13,7 @@ const userJoiSchema = Joi.object ({
     .valid("MANAGER", "TEAM_LEADER", "DEVELOPER")
     .required(),
   companyId: Joi.string()
-    .custom((value, helpers) => {
+    .custom((value:any, helpers:any) => {
       if (!mongoose.Types.ObjectId.isValid(value)) {
         return helpers.error("Invalid companyId format");
       }
@@ -35,7 +35,7 @@ const updateUserJoiSchema = Joi.object({
   email: Joi.string().email(),
   password: Joi.string(),
   designation: Joi.string().valid("MANAGER", "TEAM_LEADER", "DEVELOPER"),
-  companyId: Joi.string().custom((value, helpers) => {
+  companyId: Joi.string().custom((value:any, helpers:any) => {
     if (value && !mongoose.Types.ObjectId.isValid(value)) {
       return helpers.error("Invalid companyId format");
     }
